@@ -15,7 +15,7 @@ TodayEat is a self-hosted restaurant wishlist and shared dining journal for two 
 - **成就系统**：根据打卡记录自动解锁成就，保留解锁历史。
 - **管理后台**：管理菜品和打卡记录，支持菜品复制、批量分类、启用与停用，以及应用名称设置。
 - **照片处理**：自动压缩展示图，同时保留上传原图的备份。
-- **访问保护**：应用访问密码与管理员密码分别配置，管理员使用 JWT 会话。
+- **访问保护**：应用访问密码与管理员密码分别配置，管理员使用 JWT 会话；照片需要登录后访问。
 - **地点搜索**：可选接入高德地图，搜索餐厅位置。
 
 首次启动会自动初始化 SQLite 数据库，并添加示例餐厅、菜单和成就。
@@ -61,7 +61,7 @@ Copy-Item .env.example backend/.env
 cp .env.example backend/.env
 ```
 
-编辑 `backend/.env`，设置自己的 `APP_PASSWORD`、`ADMIN_PASSWORD` 和随机生成的 `JWT_SECRET`。模板中的值仅为占位配置。已有配置时直接编辑现有文件。
+编辑 `backend/.env`，设置自己的 `APP_PASSWORD`、`ADMIN_PASSWORD` 和随机生成的 `JWT_SECRET`。密码至少 8 个字符，JWT 密钥至少 32 字节；缺少必需配置或使用公开占位值时服务会拒绝启动。已有配置时直接编辑现有文件。生成密钥的方法见 [部署说明](DEPLOY.md)。
 
 ### 2. 启动开发环境
 
@@ -152,10 +152,10 @@ ARM64 使用对应的 `todayeat-linux-arm64` 目录。请在包含 `.env` 和 `s
 | 变量 | 说明 | 默认值 / 模板值 |
 | --- | --- | --- |
 | `PORT` | 服务端口 | `8080` |
-| `APP_PASSWORD` | 应用访问密码 | `change-me`，使用前修改 |
-| `ADMIN_PASSWORD` | 管理员密码 | `change-me`，使用前修改 |
-| `JWT_SECRET` | 管理员会话签名密钥 | 使用前替换为随机密钥 |
-| `JWT_EXPIRE` | 管理员会话有效期 | `24h` |
+| `APP_PASSWORD` | 应用访问密码，至少 8 个字符 | 未设置时使用已配置的管理员密码；拒绝 `change-me` |
+| `ADMIN_PASSWORD` | 管理员密码，至少 8 个字符 | 必须配置；拒绝 `change-me` |
+| `JWT_SECRET` | 会话签名密钥 | 必须配置至少 32 字节的随机密钥；拒绝示例值 |
+| `JWT_EXPIRE` | 管理员及照片会话有效期 | `24h` |
 | `DB_PATH` | SQLite 数据库路径 | `data/todayeat.db` |
 | `UPLOAD_DIR` | 展示图片目录 | `uploads` |
 | `BACKUP_DIR` | 上传原图备份目录 | `uploads_backup` |

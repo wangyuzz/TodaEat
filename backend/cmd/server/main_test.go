@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 	"time"
 	"todayeat/internal/database"
@@ -69,6 +70,18 @@ func TestAlreadyCancelledStartupDoesNotOpenDatabase(t *testing.T) {
 	}
 }
 
+func TestUnconfiguredStartupDoesNotOpenDatabase(t *testing.T) {
+	previous := database.DB
+	t.Chdir(t.TempDir())
+	for _, key := range []string{"ADMIN_PASSWORD", "APP_PASSWORD", "JWT_SECRET"} {
+		t.Setenv(key, "")
+	}
+	failure := run(context.Background())
+	if failure == nil || !strings.Contains(failure.Error(), "JWT_SECRET") || database.DB != previous {
+		t.Fatalf("unconfigured startup initialized resources: %v", failure)
+	}
+}
+
 func TestServerCancellationFinishesAndReleasesPort(t *testing.T) {
 	listener, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
@@ -81,7 +94,7 @@ func TestServerCancellationFinishesAndReleasesPort(t *testing.T) {
 	for key, value := range map[string]string{
 		"PORT": port, "DB_PATH": filepath.Join(root, "server.db"),
 		"UPLOAD_DIR": filepath.Join(root, "uploads"), "BACKUP_DIR": filepath.Join(root, "backup"),
-		"APP_PASSWORD": "test", "ADMIN_PASSWORD": "test", "JWT_SECRET": "test-secret",
+		"APP_PASSWORD": "test-app-password", "ADMIN_PASSWORD": "test-admin-password", "JWT_SECRET": "test-signing-secret-at-least-32-bytes",
 	} {
 		t.Setenv(key, value)
 	}

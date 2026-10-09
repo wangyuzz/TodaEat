@@ -57,6 +57,10 @@ func protect(adminOnly bool) gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
+		if err := GrantPhotoSession(ctx); err != nil {
+			ctx.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
 		ctx.Next()
 	}
 }

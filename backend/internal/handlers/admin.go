@@ -27,11 +27,16 @@ func passwordGrant(ctx *gin.Context, expected, rejected string, grant func() (an
 }
 
 func AppLogin(ctx *gin.Context) {
-	passwordGrant(ctx, config.C.AppPassword, "应用密码错误", func() (any, error) { return gin.H{"verified": true}, nil })
+	passwordGrant(ctx, config.C.AppPassword, "应用密码错误", func() (any, error) {
+		return gin.H{"verified": true}, middleware.GrantPhotoSession(ctx)
+	})
 }
 func Login(ctx *gin.Context) {
 	passwordGrant(ctx, config.C.AdminPassword, "密码错误", func() (any, error) {
 		credential, failure := middleware.GenerateToken()
+		if failure == nil {
+			failure = middleware.GrantPhotoSession(ctx)
+		}
 		return gin.H{"token": credential}, failure
 	})
 }

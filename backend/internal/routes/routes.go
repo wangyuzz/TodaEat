@@ -19,8 +19,8 @@ func Setup(r *gin.Engine) {
 	r.MaxMultipartMemory = 1 << 20
 	r.Use(middleware.CORSMiddleware())
 	uploads := rootedFiles{directory: config.C.UploadDir}
-	r.GET("/uploads/*path", uploads.upload)
-	r.HEAD("/uploads/*path", uploads.upload)
+	r.GET("/uploads/*path", middleware.PhotoAuthMiddleware(), uploads.upload)
+	r.HEAD("/uploads/*path", middleware.PhotoAuthMiddleware(), uploads.upload)
 	groups := map[access]*gin.RouterGroup{
 		publicAccess: r.Group("/api"),
 		appAccess:    r.Group("/api", middleware.AppAuthMiddleware()),

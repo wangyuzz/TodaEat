@@ -8,11 +8,12 @@ import (
 )
 
 func TestReadDefaultsFallbackAndValidation(t *testing.T) {
-	defaults, err := Read(func(string) string { return "" })
-	if err != nil || defaults.Port != "8080" || defaults.MaxUploadSize != 20<<20 || defaults.AppPassword != "change-me" {
+	credentials := map[string]string{"ADMIN_PASSWORD": "custom-admin", "JWT_SECRET": "test-signing-secret-at-least-32-bytes"}
+	defaults, err := Read(func(key string) string { return credentials[key] })
+	if err != nil || defaults.Port != "8080" || defaults.MaxUploadSize != 20<<20 || defaults.AppPassword != "custom-admin" {
 		t.Fatalf("invalid defaults: %+v, %v", defaults, err)
 	}
-	values := map[string]string{"ADMIN_PASSWORD": "custom-admin", "MAX_UPLOAD_SIZE_MB": "8", "PORT": "8090"}
+	values := map[string]string{"ADMIN_PASSWORD": "custom-admin", "JWT_SECRET": credentials["JWT_SECRET"], "MAX_UPLOAD_SIZE_MB": "8", "PORT": "8090"}
 	settings, err := Read(func(key string) string { return values[key] })
 	if err != nil || settings.AppPassword != "custom-admin" || settings.MaxUploadSize != 8<<20 || settings.Port != "8090" {
 		t.Fatalf("overrides/fallback lost: %+v, %v", settings, err)
@@ -27,12 +28,68 @@ func TestReadDefaultsFallbackAndValidation(t *testing.T) {
 				if key == invalid.key {
 					return invalid.value
 				}
-				return ""
+				return credentials[key]
 			})
-			if err == nil {
+			if err == nil || !strings.Contains(err.Error(), invalid.key) {
 				t.Fatal("invalid setting accepted")
 			}
 		})
+	}
+}
+
+func TestReadRejectsUnsafeCredentialsWithoutDisclosingValues(t *testing.T) {
+	if _, err := Read(func(string) string { return "" }); err == nil {
+		t.Fatal("unconfigured startup accepted")
+	}
+	for _, test := range []struct{ key, value string }{
+		{"ADMIN_PASSWORD", ""}, {"ADMIN_PASSWORD", "short"}, {"ADMIN_PASSWORD", "  CHANGE-ME  "},
+		{"APP_PASSWORD", "short"}, {"APP_PASSWORD", "change-me"}, {"APP_PASSWORD", "        "},
+		{"JWT_SECRET", ""}, {"JWT_SECRET", "short"}, {"JWT_SECRET", "todayeat-local-development-secret"},
+		{"JWT_SECRET", "replace-with-a-random-secret"}, {"JWT_SECRET", strings.Repeat(" ", 32)},
+	} {
+		t.Run(test.key+"/"+test.value, func(t *testing.T) {
+			values := map[string]string{"APP_PASSWORD": "test-app-password", "ADMIN_PASSWORD": "test-admin-password", "JWT_SECRET": "test-signing-secret-at-least-32-bytes"}
+			values[test.key] = test.value
+			settings, err := Read(func(key string) string { return values[key] })
+			if err == nil || settings != (Config{}) || !strings.Contains(err.Error(), test.key) {
+				t.Fatalf("unsafe credential accepted: %v", err)
+			}
+			if test.value != "" && strings.Contains(err.Error(), test.value) {
+				t.Fatal("credential disclosed in error")
+			}
+		})
+	}
+	values := map[string]string{"ADMIN_PASSWORD": "  自己设置的八字密码  ", "JWT_SECRET": strings.Repeat("x", 32)}
+	settings, err := Read(func(key string) string { return values[key] })
+	if err != nil || settings.AdminPassword != values["ADMIN_PASSWORD"] || settings.AppPassword != settings.AdminPassword {
+		t.Fatal("valid literal password/fallback changed")
+	}
+	file, err := os.Open("../../../.env.example")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer file.Close()
+	entries, err := environmentEntries(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := Read(func(key string) string { return entries[key] }); err == nil {
+		t.Fatal("example configuration accepted for deployment")
+	}
+}
+
+func TestUnsafeLoadDoesNotPublishConfiguration(t *testing.T) {
+	previous := C
+	t.Cleanup(func() { C = previous })
+	t.Chdir(t.TempDir())
+	for _, key := range []string{"ADMIN_PASSWORD", "APP_PASSWORD", "JWT_SECRET", "TODAYEAT_ATOMIC_TEST"} {
+		t.Setenv(key, "")
+	}
+	if err := os.WriteFile(".env", []byte("ADMIN_PASSWORD=change-me\nTODAYEAT_ATOMIC_TEST=unpublished\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if Load() == nil || C != previous || os.Getenv("TODAYEAT_ATOMIC_TEST") != "" {
+		t.Fatal("unsafe configuration was published")
 	}
 }
 

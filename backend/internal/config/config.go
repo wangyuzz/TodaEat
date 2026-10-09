@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 	"unicode"
+	"unicode/utf8"
 )
 
 type Config struct {
@@ -57,8 +58,8 @@ func Read(lookup func(string) string) (Config, error) {
 	uploadMB := reader.integer("MAX_UPLOAD_SIZE_MB", 20, 1, int(min(int64(largestInt), int64(1<<63-1)>>20)))
 	options := Config{
 		Port:        reader.text("PORT", "8080"),
-		AppPassword: reader.text("APP_PASSWORD", ""), AdminPassword: reader.text("ADMIN_PASSWORD", "change-me"),
-		JWTSecret: reader.text("JWT_SECRET", "todayeat-local-development-secret"), JWTExpire: reader.text("JWT_EXPIRE", "24h"),
+		AppPassword: reader.text("APP_PASSWORD", ""), AdminPassword: reader.text("ADMIN_PASSWORD", ""),
+		JWTSecret: reader.text("JWT_SECRET", ""), JWTExpire: reader.text("JWT_EXPIRE", "24h"),
 		DBPath:    reader.text("DB_PATH", "data/todayeat.db"),
 		UploadDir: reader.text("UPLOAD_DIR", "uploads"), BackupDir: reader.text("BACKUP_DIR", "uploads_backup"),
 		RepeatDays:     reader.integer("REPEAT_DAYS", 3, 1, largestInt),
@@ -70,11 +71,21 @@ func Read(lookup func(string) string) (Config, error) {
 	if durationErr != nil || lifetime <= 0 {
 		reader.failures = append(reader.failures, errors.New("JWT_EXPIRE 应为正的时间长度，例如 24h"))
 	}
-	if failure := errors.Join(reader.failures...); failure != nil {
-		return Config{}, failure
-	}
 	if options.AppPassword == "" {
 		options.AppPassword = options.AdminPassword
+	}
+	for name, password := range map[string]string{"ADMIN_PASSWORD": options.AdminPassword, "APP_PASSWORD": options.AppPassword} {
+		value := strings.TrimSpace(password)
+		if utf8.RuneCountInString(value) < 8 || strings.EqualFold(value, "change-me") {
+			reader.failures = append(reader.failures, fmt.Errorf("%s 必须至少包含 8 个字符，且不能使用示例密码", name))
+		}
+	}
+	secret := strings.TrimSpace(options.JWTSecret)
+	if len(secret) < 32 || secret == "todayeat-local-development-secret" || secret == "replace-with-a-random-secret" {
+		reader.failures = append(reader.failures, errors.New("JWT_SECRET 必须使用至少 32 字节的随机密钥，不能使用示例密钥"))
+	}
+	if failure := errors.Join(reader.failures...); failure != nil {
+		return Config{}, failure
 	}
 	return options, nil
 }
