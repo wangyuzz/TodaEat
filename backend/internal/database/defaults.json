@@ -1,0 +1,240 @@
+{
+  "settings": {
+    "app_name": "今天吃什么",
+    "categories": "[\"火锅\",\"日料\",\"烧烤\",\"西餐\",\"中餐\",\"快餐\",\"咖啡馆\",\"甜品\",\"酒馆\",\"小吃\",\"其他\"]",
+    "tastes": "[\"咸\",\"甜\",\"酸\",\"辣\",\"清淡\",\"咸鲜\",\"麻辣\",\"蒜香\",\"葱香\",\"酱香\",\"糖醋\",\"酸辣\",\"香辣\",\"甜辣\",\"豉香\",\"清鲜\",\"咸香\",\"酸甜\",\"鲜辣\",\"浓香\",\"孜然\"]"
+  },
+  "achievements": [
+    {
+      "code": "first_visit",
+      "name": "第一次约饭",
+      "description": "记录第一次餐厅打卡",
+      "icon": "🍽️",
+      "condition": "auto"
+    },
+    {
+      "code": "visit_3",
+      "name": "三餐成行",
+      "description": "累计完成 3 次打卡",
+      "icon": "🍜",
+      "condition": "auto"
+    },
+    {
+      "code": "visit_10",
+      "name": "约饭常客",
+      "description": "累计完成 10 次打卡",
+      "icon": "📍",
+      "condition": "auto"
+    },
+    {
+      "code": "visit_30",
+      "name": "探店日历",
+      "description": "累计完成 30 次打卡",
+      "icon": "🗓️",
+      "condition": "auto"
+    },
+    {
+      "code": "visit_50",
+      "name": "半百回忆",
+      "description": "累计完成 50 次打卡",
+      "icon": "🏆",
+      "condition": "auto"
+    },
+    {
+      "code": "visit_100",
+      "name": "百次同行",
+      "description": "累计完成 100 次打卡",
+      "icon": "💯",
+      "condition": "auto"
+    },
+    {
+      "code": "restaurants_3",
+      "name": "三家小地图",
+      "description": "打卡过 3 家不同餐厅",
+      "icon": "🗺️",
+      "condition": "auto"
+    },
+    {
+      "code": "restaurants_10",
+      "name": "十店收藏",
+      "description": "打卡过 10 家不同餐厅",
+      "icon": "🏫",
+      "condition": "auto"
+    },
+    {
+      "code": "restaurants_30",
+      "name": "城市胃口",
+      "description": "打卡过 30 家不同餐厅",
+      "icon": "🏙️",
+      "condition": "auto"
+    },
+    {
+      "code": "restaurants_50",
+      "name": "探店图鉴",
+      "description": "打卡过 50 家不同餐厅",
+      "icon": "📎",
+      "condition": "auto"
+    },
+    {
+      "code": "first_wish",
+      "name": "想去第一家",
+      "description": "把第一家餐厅加入想去清单",
+      "icon": "💱",
+      "condition": "auto"
+    },
+    {
+      "code": "wish_10",
+      "name": "愿望清单",
+      "description": "想去清单达到 10 家餐厅",
+      "icon": "📑",
+      "condition": "auto"
+    },
+    {
+      "code": "first_photo",
+      "name": "第一张合照",
+      "description": "打卡时上传第一张照片",
+      "icon": "📷",
+      "condition": "auto"
+    },
+    {
+      "code": "photo_visits_3",
+      "name": "回忆上墙",
+      "description": "3 次打卡留下照片",
+      "icon": "🖼️",
+      "condition": "auto"
+    },
+    {
+      "code": "photo_30",
+      "name": "约饭相册",
+      "description": "累计上传 30 张照片",
+      "icon": "📳",
+      "condition": "auto"
+    },
+    {
+      "code": "first_rating",
+      "name": "认真点评",
+      "description": "给第一次点单留下评分",
+      "icon": "⭐",
+      "condition": "auto"
+    },
+    {
+      "code": "rating_20",
+      "name": "评分达人",
+      "description": "累计给 20 道点单评分",
+      "icon": "🌟",
+      "condition": "auto"
+    },
+    {
+      "code": "high_rating_10",
+      "name": "好吃认证",
+      "description": "累计留下 10 个 4 分及以上评分",
+      "icon": "✅",
+      "condition": "auto"
+    },
+    {
+      "code": "first_remark",
+      "name": "饭后有话",
+      "description": "第一次写下打卡备注",
+      "icon": "💬",
+      "condition": "auto"
+    },
+    {
+      "code": "remark_10",
+      "name": "回忆手账",
+      "description": "累计写下 10 条打卡备注",
+      "icon": "📀",
+      "condition": "auto"
+    },
+    {
+      "code": "cost_500",
+      "name": "约会基金起步",
+      "description": "累计记录花费达到 500 元",
+      "icon": "💸",
+      "condition": "auto"
+    },
+    {
+      "code": "cost_2000",
+      "name": "认真约饭",
+      "description": "累计记录花费达到 2000 元",
+      "icon": "💵",
+      "condition": "auto"
+    },
+    {
+      "code": "category_3",
+      "name": "口味探索",
+      "description": "打卡过 3 种餐厅分类",
+      "icon": "🥗",
+      "condition": "auto"
+    },
+    {
+      "code": "category_6",
+      "name": "吃法很多",
+      "description": "打卡过 6 种餐厅分类",
+      "icon": "🍪",
+      "condition": "auto"
+    },
+    {
+      "code": "streak_3",
+      "name": "连续三天",
+      "description": "连续 3 天都有餐厅打卡",
+      "icon": "🔥",
+      "condition": "auto"
+    },
+    {
+      "code": "streak_7",
+      "name": "一周约饭",
+      "description": "连续 7 天都有餐厅打卡",
+      "icon": "📯",
+      "condition": "auto"
+    },
+    {
+      "code": "month_10",
+      "name": "月度常客",
+      "description": "同一个月完成 10 次打卡",
+      "icon": "🌙",
+      "condition": "auto"
+    },
+    {
+      "code": "top_restaurant_3",
+      "name": "有家老地方",
+      "description": "同一家餐厅打卡 3 次",
+      "icon": "🏔️",
+      "condition": "auto"
+    },
+    {
+      "code": "top_restaurant_10",
+      "name": "本命餐厅",
+      "description": "同一家餐厅打卡 10 次",
+      "icon": "👫",
+      "condition": "auto"
+    },
+    {
+      "code": "menu_10",
+      "name": "菜单起步",
+      "description": "餐厅菜单项达到 10 个",
+      "icon": "📵",
+      "condition": "auto"
+    },
+    {
+      "code": "menu_50",
+      "name": "菜单博物馆",
+      "description": "餐厅菜单项达到 50 个",
+      "icon": "🏌️",
+      "condition": "auto"
+    },
+    {
+      "code": "happy_10",
+      "name": "开心开饭",
+      "description": "累计记录 10 次开心心情",
+      "icon": "😊",
+      "condition": "auto"
+    },
+    {
+      "code": "love_10",
+      "name": "甜蜜饭点",
+      "description": "累计记录 10 次喜欢心情",
+      "icon": "🥰",
+      "condition": "auto"
+    }
+  ]
+}

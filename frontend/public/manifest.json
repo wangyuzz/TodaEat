@@ -1,0 +1,41 @@
+{
+  "name": "今天吃什么",
+  "short_name": "吃什么",
+  "description": "一起决定今天去哪吃，记录每一次约饭",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8F0",
+  "theme_color": "#E8734A",
+  "icons": [
+    {
+      "src": "/32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

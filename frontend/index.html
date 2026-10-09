@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/180.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#FFF8F0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="今天吃什么" />
+    <meta name="description" content="今天吃什么 - 一起决定今天去哪吃，记录每一次约饭" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>今天吃什么</title>
+    <style>
+      html, body, #root { min-height: 100%; }
+      body { margin: 0; background: #FFF8F0; }
+      #root { min-height: 100vh; }
+      @supports (min-height: 100dvh) {
+        #root { min-height: 100dvh; }
+      }
+    </style>
+    <script type="module" crossorigin src="/src/main.jsx"></script>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      !function(){var e=20,t=!1;document.addEventListener("touchstart",function(n){var o=n.touches[0].clientX,a=window.innerWidth;t=o<e||o>a-e},!0),document.addEventListener("touchmove",function(n){t&&n.preventDefault()},!1),document.addEventListener("touchend",function(){t=!1},!0)}();
+    </script>
+  </body>
+</html>
