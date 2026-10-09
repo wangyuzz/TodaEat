@@ -1,55 +1,64 @@
 # TodayEat · 今天吃什么
 
-一个可自行部署的双人餐厅收藏和用餐记录应用。收藏想去的餐厅，纠结时随机选一家，吃完留下评分、心情和照片，让每一次一起吃饭都有迹可循。情侣、朋友或其他希望共同记录用餐的小伙伴都可以部署自己的实例。
+**English | [简体中文](README.zh-CN.md)**
 
-前端使用 React + Vite，后端使用 Go + Gin + SQLite。构建后由一个 Go 服务提供页面和 API，适合部署在自己的服务器上。
+[![CI](https://github.com/wangyuzz/eat/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyuzz/eat/actions/workflows/ci.yml)
+[![Build packages](https://github.com/wangyuzz/eat/actions/workflows/packages.yml/badge.svg)](https://github.com/wangyuzz/eat/actions/workflows/packages.yml)
+[![MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-TodayEat is a self-hosted restaurant wishlist and shared dining journal for two people. It supports random restaurant selection, ratings, photos, visit history, and achievements. Anyone can run their own instance using the documented setup below. Optional location search uses AMap; the core application works without an API key.
+A self-hosted restaurant wishlist and shared dining journal for two people. Save places you want to try, pick a restaurant when you cannot decide, and keep a record of meals, ratings, moods, and photos. Couples, friends, and anyone who enjoys sharing meals can run their own instance.
 
-## 功能
+TodayEat uses React + Vite, Go + Gin, and SQLite. A single Go service serves the built frontend and API. Optional location search uses AMap; the core application works without an API key.
 
-- **餐厅收藏**：管理餐厅分类、地址、招牌菜、标签和图片，标记想去的餐厅。
-- **随机选择**：不知道吃什么时，从餐厅列表中随机挑选。
-- **双人打卡**：记录日期、吃过的菜、双方评分与心情、花费、备注和照片。
-- **用餐回忆**：通过历史记录、统计和照片墙回顾一起吃过的饭。
-- **成就系统**：根据打卡记录自动解锁成就，保留解锁历史。
-- **管理后台**：管理菜品和打卡记录，支持菜品复制、批量分类、启用与停用，以及应用名称设置。
-- **照片处理**：自动压缩展示图，同时保留上传原图的备份。
-- **访问保护**：应用访问密码与管理员密码分别配置，管理员使用 JWT 会话；照片需要登录后访问。
-- **地点搜索**：可选接入高德地图，搜索餐厅位置。
+## Preview
 
-首次启动会自动初始化 SQLite 数据库，并添加示例餐厅、菜单和成就。
+| Home | Restaurant collection | Meal albums |
+| --- | --- | --- |
+| ![Home with restaurant suggestions and dining statistics](docs/images/home.jpg) | ![Restaurant collection with category filters and wishlists](docs/images/restaurants.jpg) | ![Meal albums grouped by month with images and meal details](docs/images/photo-wall.jpg) |
+| Pick a restaurant and quickly record a meal. | Search, filter by category, and save places to try. | Revisit each meal with images, moods, and spending. |
 
-## 代码与版本来源
+Screenshots use the frontend in a local preview with fictional restaurants, addresses, meal records, and food illustrations.
 
-本项目在作者自己的早期版本上继续开发。部分前端源码从作者已有部署的构建产物恢复，随后重构维护，因此有些模块保留了恢复后的变量名和兼容层。正式开发代码位于 `frontend/src/` 和 `backend/`，恢复工具、个人运行数据及本地工具链不属于发布源码。
+[Hosted instance](https://eat.nowayzzz1.dpdns.org/) requires an application password. The screenshot fixtures are separate from the hosted instance. The application interface is currently in Simplified Chinese; this repository provides English and Chinese documentation.
 
-本次整理补全了公开开发所需的部署文档、贡献说明和自动检查。照片墙支持按月份分组、月份筛选、图片预览与加载失败重试；后端包含配置、认证、上传、数据库及接口行为测试。持续检查见仓库的 Actions 页面。
+## Features
 
-## 技术栈
+- **Restaurant collection:** organize categories, addresses, signature dishes, tags, images, and wishlists.
+- **Random suggestions:** choose a restaurant from your collection when you cannot decide.
+- **Shared meal check-ins:** record the date, dishes, both people's ratings and moods, cost, notes, and photos.
+- **Dining memories:** browse visit history, statistics, and a photo wall with month filters and image previews.
+- **Achievements:** unlock milestones from your dining history.
+- **Administration:** manage dishes and records, clone dishes, apply batch changes, and customize the application name.
+- **Image processing:** compress display images and retain backups of uploaded originals.
+- **Access protection:** separate application and administrator passwords, administrator JWT sessions, and authenticated photo access.
+- **Optional location search:** find restaurant locations through AMap.
 
-| 部分 | 技术 |
+The first startup initializes SQLite and installs example restaurants, menus, and achievements.
+
+## Source history
+
+This project continues the author's earlier application. Some frontend source was recovered from the author's own deployed build, then refactored and maintained; some modules retain recovered variable names and compatibility layers. Maintained application code lives in `frontend/src/` and `backend/`. Recovery tools, personal runtime data, and local toolchains are excluded from the published source.
+
+The repository includes deployment instructions, contribution guidelines, backend tests, frontend photo-wall model tests, and continuous integration. Public commit dates reflect the actual source import and subsequent changes.
+
+## Technology
+
+| Area | Stack |
 | --- | --- |
-| 前端 | React 19、Vite 8、React Router |
-| 状态与请求 | TanStack Query、Zustand、Axios |
-| 动画与图标 | GSAP、Lucide |
-| 后端 | Go、Gin、GORM |
-| 数据库 | SQLite，纯 Go 驱动 |
-| 认证 | 应用密码、管理员 JWT |
+| Frontend | React 19, Vite 8, React Router |
+| State and requests | TanStack Query, Zustand, Axios |
+| Animation and icons | GSAP, Lucide |
+| Backend | Go, Gin, GORM |
+| Database | SQLite with a pure Go driver |
+| Authentication | Application password, administrator JWT, photo session cookie |
 
-## 快速开始
+## Quick start
 
-### 环境要求
+### Requirements and configuration
 
-- Go 1.25.5 或更高版本。
-- Node.js 22.12 或更高版本及 npm。
-- Windows 使用 PowerShell；Linux / macOS 使用 Bash。
+Install Go 1.25.5 or later and Node.js 22.12 or later with npm. Use PowerShell on Windows or Bash on Linux / macOS. Clone the repository and enter its root directory.
 
-克隆或下载仓库后，进入项目根目录。
-
-### 1. 配置应用
-
-将配置模板复制到 `backend/.env`。首次配置时执行：
+For a new installation, copy the configuration template:
 
 ```powershell
 # Windows PowerShell
@@ -61,11 +70,17 @@ Copy-Item .env.example backend/.env
 cp .env.example backend/.env
 ```
 
-编辑 `backend/.env`，设置自己的 `APP_PASSWORD`、`ADMIN_PASSWORD` 和随机生成的 `JWT_SECRET`。密码至少 8 个字符，JWT 密钥至少 32 字节；缺少必需配置或使用公开占位值时服务会拒绝启动。已有配置时直接编辑现有文件。生成密钥的方法见 [部署说明](DEPLOY.md)。
+Edit `backend/.env` and set your own `APP_PASSWORD`, `ADMIN_PASSWORD`, and random `JWT_SECRET`. Passwords must contain at least 8 characters; the JWT key must contain at least 32 bytes. The service rejects missing required credentials and public placeholder values. Edit the current configuration when upgrading an existing installation.
 
-### 2. 启动开发环境
+Generate a random signing key:
 
-在第一个终端启动后端：
+```bash
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
+```
+
+### Development
+
+Start the backend in one terminal:
 
 ```bash
 cd backend
@@ -73,7 +88,7 @@ go mod download
 go run ./cmd/server
 ```
 
-在另一个终端，从项目根目录启动前端：
+Start the frontend from the repository root in another terminal:
 
 ```bash
 cd frontend
@@ -81,128 +96,111 @@ npm ci
 npm run dev
 ```
 
-打开 [http://127.0.0.1:5173](http://127.0.0.1:5173)，使用配置的应用密码进入。
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173) and enter your application password. Vite proxies `/api` and `/uploads` to `http://127.0.0.1:8080`; update `frontend/vite.config.js` if you change the backend port.
 
-开发服务器会将 `/api` 和 `/uploads` 请求代理到 `http://127.0.0.1:8080`。如果修改后端端口，也需要修改 `frontend/vite.config.js` 中的代理地址。
+### Combined application on Windows
 
-### Windows 一体化运行
-
-完成上述配置后，在项目根目录执行：
+After configuration, run from the repository root:
 
 ```powershell
 ./scripts/build.ps1
 ./scripts/start-local.ps1
 ```
 
-打开 [http://127.0.0.1:8080](http://127.0.0.1:8080)。启动脚本使用 `backend/.env`，数据库和照片默认保存在 `backend/` 下。按 `Ctrl+C` 停止服务。
+Open [http://127.0.0.1:8080](http://127.0.0.1:8080). The startup script uses `backend/.env`; default data and image directories are under `backend/`. Stop with `Ctrl+C`.
 
-## 构建与部署
+## Build and deploy
 
-### Windows 上构建
+### GitHub Actions packages
+
+Maintainers can open [Build packages](https://github.com/wangyuzz/eat/actions/workflows/packages.yml) and select **Run workflow**. Pushing a `v*` tag also triggers packaging. Successful runs provide Windows AMD64, Linux AMD64, and Linux ARM64 downloads under **Artifacts**. GitHub sign-in is usually required to download artifacts; they are retained for 30 days.
+
+Extract the GitHub artifact, then extract the runtime archive inside. Copy `.env.example` to `.env` and configure credentials before starting. Each package includes the executable, frontend assets, license notices, and deployment instructions.
+
+[CI](https://github.com/wangyuzz/eat/actions/workflows/ci.yml) runs backend tests, static checks, and builds on Linux and Windows, plus frontend tests and builds, on pushes and pull requests.
+
+### Local builds
 
 ```powershell
-# Windows AMD64
+# Windows PowerShell: Windows AMD64
 ./scripts/build.ps1
-
-# Linux AMD64
+# Linux AMD64 / ARM64
 ./scripts/build.ps1 -TargetOS linux -TargetArch amd64
-
-# Linux ARM64
 ./scripts/build.ps1 -TargetOS linux -TargetArch arm64
 ```
 
-如果已安装前端依赖，可添加 `-SkipInstall` 跳过 `npm ci`。
-
-### Linux / macOS 上构建
+Add `-SkipInstall` when frontend dependencies are already installed.
 
 ```bash
-# Linux AMD64
+# Linux / macOS
 bash scripts/build.sh linux amd64
-
-# Linux ARM64
+# Or Linux ARM64:
 bash scripts/build.sh linux arm64
 ```
 
-构建结果位于 `dist/`，包含可执行文件、`static/` 前端资源、配置模板和部署说明。Windows 构建脚本生成 ZIP 或 TAR.GZ 运行包，Bash 脚本生成 TAR.GZ 运行包。
+Packages are written to `dist/`. PowerShell creates ZIP packages for Windows and TAR.GZ packages for Linux; Bash creates TAR.GZ packages.
 
-### Linux 运行
+### Run on Linux
 
-以 Linux AMD64 构建结果为例，进入运行目录并准备配置：
+For a Linux AMD64 build:
 
 ```bash
 cd dist/todayeat-linux-amd64
 cp .env.example .env
 chmod +x todayeat
-```
-
-编辑该目录下的 `.env`，设置密码和 JWT 密钥后启动：
-
-```bash
+# Edit .env with your passwords and signing key before running:
 ./todayeat
 ```
 
-ARM64 使用对应的 `todayeat-linux-arm64` 目录。请在包含 `.env` 和 `static/` 的运行目录中启动程序。服务默认监听 `8080` 端口，可通过反向代理配置域名和 HTTPS。
+ARM64 builds use `todayeat-linux-arm64`. Start from the directory containing `.env` and `static/`. The default port is `8080`; use a reverse proxy for your domain and HTTPS. Keep the frontend, API, and uploads on the same origin. An HTTPS proxy must overwrite `X-Forwarded-Proto` with `https` so photo cookies are marked Secure.
 
-服务托管、备份和更新步骤见 [部署说明](DEPLOY.md)。
+See [DEPLOY.md](DEPLOY.md) (Simplified Chinese) for service management, backups, and upgrades.
 
-## 配置
+## Configuration
 
-配置模板见 [.env.example](.env.example)。相对路径以程序的工作目录为基准。
+See [.env.example](.env.example). Relative paths resolve from the service's working directory.
 
-| 变量 | 说明 | 默认值 / 模板值 |
+| Variable | Purpose | Default / requirement |
 | --- | --- | --- |
-| `PORT` | 服务端口 | `8080` |
-| `APP_PASSWORD` | 应用访问密码，至少 8 个字符 | 未设置时使用已配置的管理员密码；拒绝 `change-me` |
-| `ADMIN_PASSWORD` | 管理员密码，至少 8 个字符 | 必须配置；拒绝 `change-me` |
-| `JWT_SECRET` | 会话签名密钥 | 必须配置至少 32 字节的随机密钥；拒绝示例值 |
-| `JWT_EXPIRE` | 管理员及照片会话有效期 | `24h` |
-| `DB_PATH` | SQLite 数据库路径 | `data/todayeat.db` |
-| `UPLOAD_DIR` | 展示图片目录 | `uploads` |
-| `BACKUP_DIR` | 上传原图备份目录 | `uploads_backup` |
-| `MAX_UPLOAD_SIZE_MB` | 单个上传文件的大小上限，MB | `20` |
-| `COMPRESS_MAX_DIM` | 图片压缩后的最长边，像素 | `1200` |
-| `JPEG_QUALITY` | JPEG 压缩质量 | `85` |
-| `AMAP_KEY` | 高德地图 Web 服务 Key | 可选 |
-| `AMAP_CITY` | 地点搜索的城市范围 | 可选 |
+| `PORT` | Service port | `8080` |
+| `APP_PASSWORD` | Application password, at least 8 characters | Falls back to the configured administrator password; rejects `change-me` |
+| `ADMIN_PASSWORD` | Administrator password, at least 8 characters | Required; rejects `change-me` |
+| `JWT_SECRET` | Session signing key | Required random key of at least 32 bytes; rejects example values |
+| `JWT_EXPIRE` | Administrator and photo session lifetime | `24h` |
+| `DB_PATH` | SQLite database path | `data/todayeat.db` |
+| `UPLOAD_DIR` | Display image directory | `uploads` |
+| `BACKUP_DIR` | Original image backup directory | `uploads_backup` |
+| `MAX_UPLOAD_SIZE_MB` | Maximum size per upload, MB | `20` |
+| `COMPRESS_MAX_DIM` | Longest edge of compressed images, pixels | `1200` |
+| `JPEG_QUALITY` | JPEG compression quality | `85` |
+| `AMAP_KEY` | AMap web service key | Optional |
+| `AMAP_CITY` | City scope for location search | Optional |
 
-未配置高德 Key 时，其他功能仍可使用。
+Core features remain available without an AMap key. Photos require a valid photo session cookie or application / administrator credentials. The photo cookie does not grant API or administrator access; changing either password or the signing key invalidates old photo sessions.
 
-## 数据保存
+## Persistent data and upgrades
 
-默认需要保存以下内容：
+Preserve `.env`, `data/todayeat.db`, `uploads/`, and `uploads_backup/`. Replace only the executable and `static/` during an upgrade. Use SQLite's backup facilities (for example, `.backup`) for a running database, or stop the service before copying its database files.
 
-```text
-运行目录/
-├── .env                 # 密码、密钥和运行配置
-├── data/todayeat.db      # 餐厅、菜单、打卡和设置
-├── uploads/             # 展示图片
-└── uploads_backup/      # 上传原图
-```
+The repository and source archive exclude personal databases, photos, and actual runtime credentials. `.gitignore` also excludes dependencies, local toolchains, and build outputs. When upgrading from a version with public default credentials, replace both passwords and the JWT key.
 
-升级时保留这些文件和目录。备份运行中的 SQLite 数据库时，应使用 SQLite 的备份功能，例如 `.backup`；也可以停止服务后备份数据文件。
-
-仓库及源码包不包含个人数据库、照片或实际运行密码。`.gitignore` 已排除本地配置、数据、上传文件、依赖目录和构建产物。
-
-## 项目结构
+## Project layout
 
 ```text
 backend/
-├── cmd/server/          # 服务入口
-└── internal/            # 认证、配置、数据库、接口与图片处理
+├── cmd/server/          # Service entry point
+└── internal/            # Authentication, configuration, database, APIs, images
 frontend/
-├── public/              # 公共资源
+├── public/              # Public assets
 └── src/
-    ├── application.jsx # 主应用、路由和公共页面
-    ├── components/     # 共享组件
-    └── pages/          # 打卡、照片墙、成就和管理后台
-scripts/                 # 构建、启动、源码打包与校验工具
-.env.example             # 配置模板
-DEPLOY.md                # 部署说明
+    ├── application.jsx # Shared application and routes
+    ├── components/     # Shared components
+    └── pages/          # Check-ins, albums, achievements, administration
+scripts/                 # Build, startup, source packaging, and verification
+docs/images/             # Screenshots with fictional demonstration data
 ```
 
-## 开发检查
-
-后端测试与静态检查：
+## Development checks
 
 ```bash
 cd backend
@@ -210,7 +208,7 @@ go test ./...
 go vet ./...
 ```
 
-前端构建检查，在项目根目录执行：
+From the repository root:
 
 ```bash
 cd frontend
@@ -219,10 +217,10 @@ npm test
 npm run build
 ```
 
-需要单独打包源码时，可在项目根目录运行 `./scripts/package-source.ps1`，输出为 `dist/todayeat-recovered-source.zip`。
+To package committed source, run `./scripts/package-source.ps1` from the repository root. It writes `dist/todayeat-recovered-source.zip`.
 
-## 参与开发与许可证
+## Contributing and license
 
-欢迎提交可复现的问题、文档修正和功能改进。开发与验证流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，部署及数据保护说明见 [DEPLOY.md](DEPLOY.md)。
+Issues, reproducible bug reports, documentation fixes, and improvements are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [DEPLOY.md](DEPLOY.md) for development and deployment guidance (currently in Simplified Chinese).
 
-本项目的自有源码按 [MIT 许可证](LICENSE) 发布。第三方依赖和已有的版权声明仍适用其各自许可证；请参阅 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+TodayEat's own source is distributed under the [MIT license](LICENSE). Third-party dependencies retain their own licenses and copyright notices; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,0 +1,59 @@
+name: Build packages
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Package (${{ matrix.target }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: windows-amd64
+            runner: windows-latest
+            os: windows
+            arch: amd64
+            archive: zip
+          - target: linux-amd64
+            runner: ubuntu-latest
+            os: linux
+            arch: amd64
+            archive: tar.gz
+          - target: linux-arm64
+            runner: ubuntu-latest
+            os: linux
+            arch: arm64
+            archive: tar.gz
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Build Windows package
+        if: matrix.os == 'windows'
+        shell: pwsh
+        run: ./scripts/build.ps1 -TargetOS windows -TargetArch amd64
+      - name: Build Linux package
+        if: matrix.os == 'linux'
+        shell: bash
+        run: bash scripts/build.sh linux "${{ matrix.arch }}"
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: todayeat-${{ matrix.target }}
+          path: dist/todayeat-${{ matrix.target }}.${{ matrix.archive }}
+          if-no-files-found: error
+          retention-days: 30
