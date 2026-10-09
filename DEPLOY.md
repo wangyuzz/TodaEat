@@ -1,4 +1,4 @@
-# 部署 TodayEat
+# 部署 TodaEat
 
 ## 构建和启动
 
@@ -33,7 +33,7 @@ Linux 从包含 `.env` 和 `static/` 的目录执行 `./todayeat`。Windows 本�
 
 ```ini
 [Unit]
-Description=TodayEat dining journal
+Description=TodaEat dining journal
 After=network.target
 
 [Service]

@@ -1,14 +1,14 @@
-# TodayEat · 今天吃什么
+# TodaEat · 今天吃什么
 
 **English | [简体中文](README.zh-CN.md)**
 
-[![CI](https://github.com/wangyuzz/eat/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyuzz/eat/actions/workflows/ci.yml)
-[![Build packages](https://github.com/wangyuzz/eat/actions/workflows/packages.yml/badge.svg)](https://github.com/wangyuzz/eat/actions/workflows/packages.yml)
+[![CI](https://github.com/wangyuzz/TodaEat/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyuzz/TodaEat/actions/workflows/ci.yml)
+[![Build packages](https://github.com/wangyuzz/TodaEat/actions/workflows/packages.yml/badge.svg)](https://github.com/wangyuzz/TodaEat/actions/workflows/packages.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 A self-hosted restaurant wishlist and shared dining journal for two people. Save places you want to try, pick a restaurant when you cannot decide, and keep a record of meals, ratings, moods, and photos. Couples, friends, and anyone who enjoys sharing meals can run their own instance.
 
-TodayEat uses React + Vite, Go + Gin, and SQLite. A single Go service serves the built frontend and API. Optional location search uses AMap; the core application works without an API key.
+TodaEat uses React + Vite, Go + Gin, and SQLite. A single Go service serves the built frontend and API. Optional location search uses AMap; the core application works without an API key.
 
 ## Preview
 
@@ -17,7 +17,7 @@ TodayEat uses React + Vite, Go + Gin, and SQLite. A single Go service serves the
 | ![Home with restaurant suggestions and dining statistics](docs/images/home.jpg) | ![Restaurant collection with category filters and wishlists](docs/images/restaurants.jpg) | ![Meal albums grouped by month with images and meal details](docs/images/photo-wall.jpg) |
 | Pick a restaurant and quickly record a meal. | Search, filter by category, and save places to try. | Revisit each meal with images, moods, and spending. |
 
-Screenshots use the frontend in a local preview with fictional restaurants, addresses, meal records, and food illustrations.
+Screenshots use the frontend in a local preview with maintainer-supplied photos of Fei Da Chu, Burger King, and a dessert shop. Addresses, visit dates, spending, and notes are sample data. Fresh installations include these three example restaurants and dishes; the photos are bundled in `frontend/public/examples/`.
 
 [Hosted instance](https://eat.nowayzzz1.dpdns.org/) requires an application password. The screenshot fixtures are separate from the hosted instance. The application interface is currently in Simplified Chinese; this repository provides English and Chinese documentation.
 
@@ -111,13 +111,17 @@ Open [http://127.0.0.1:8080](http://127.0.0.1:8080). The startup script uses `ba
 
 ## Build and deploy
 
+### Release downloads
+
+Download ready-to-run Windows AMD64, Linux AMD64, and Linux ARM64 packages from [Releases](https://github.com/wangyuzz/TodaEat/releases/latest). Release assets also include a source archive and SHA-256 checksums. Extract the runtime package, copy `.env.example` to `.env`, and configure your passwords and random JWT key before starting. Runtime filenames use the `todayeat` prefix.
+
 ### GitHub Actions packages
 
-Maintainers can open [Build packages](https://github.com/wangyuzz/eat/actions/workflows/packages.yml) and select **Run workflow**. Pushing a `v*` tag also triggers packaging. Successful runs provide Windows AMD64, Linux AMD64, and Linux ARM64 downloads under **Artifacts**. GitHub sign-in is usually required to download artifacts; they are retained for 30 days.
+Maintainers can open [Build packages](https://github.com/wangyuzz/TodaEat/actions/workflows/packages.yml) and select **Run workflow**. Pushing a `v*` tag also triggers packaging. Successful runs provide Windows AMD64, Linux AMD64, and Linux ARM64 downloads under **Artifacts**. GitHub sign-in is usually required to download artifacts; they are retained for 30 days.
 
 Extract the GitHub artifact, then extract the runtime archive inside. Copy `.env.example` to `.env` and configure credentials before starting. Each package includes the executable, frontend assets, license notices, and deployment instructions.
 
-[CI](https://github.com/wangyuzz/eat/actions/workflows/ci.yml) runs backend tests, static checks, and builds on Linux and Windows, plus frontend tests and builds, on pushes and pull requests.
+[CI](https://github.com/wangyuzz/TodaEat/actions/workflows/ci.yml) runs backend tests, static checks, and builds on Linux and Windows, plus frontend tests and builds, on pushes and pull requests.
 
 ### Local builds
 
@@ -197,7 +201,7 @@ frontend/
     ├── components/     # Shared components
     └── pages/          # Check-ins, albums, achievements, administration
 scripts/                 # Build, startup, source packaging, and verification
-docs/images/             # Screenshots with fictional demonstration data
+docs/images/             # Screenshots with sample dining records
 ```
 
 ## Development checks
@@ -223,4 +227,4 @@ To package committed source, run `./scripts/package-source.ps1` from the reposit
 
 Issues, reproducible bug reports, documentation fixes, and improvements are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [DEPLOY.md](DEPLOY.md) for development and deployment guidance (currently in Simplified Chinese).
 
-TodayEat's own source is distributed under the [MIT license](LICENSE). Third-party dependencies retain their own licenses and copyright notices; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+TodaEat's own source is distributed under the [MIT license](LICENSE). Third-party dependencies retain their own licenses and copyright notices; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,6 +1,6 @@
 # Third-party components
 
-TodayEat's own source is distributed under the MIT license in [LICENSE](LICENSE). Third-party components retain their own licenses and copyright notices; the project license does not replace them.
+TodaEat's own source is distributed under the MIT license in [LICENSE](LICENSE). Third-party components retain their own licenses and copyright notices; the project license does not replace them.
 
 - Frontend dependencies are recorded in `frontend/package.json` and `frontend/package-lock.json`: React, React Router, TanStack Query, Zustand, Axios, GSAP, Lucide, react-hot-toast, Vite, and their dependencies.
 - Backend dependencies are recorded in `backend/go.mod` and `backend/go.sum`: Gin, GORM, SQLite drivers, jwt/v5, image processing packages, and their dependencies.

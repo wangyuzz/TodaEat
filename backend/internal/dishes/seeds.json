@@ -730,5 +730,110 @@
         "sort_order": 50
       }
     ]
+  },
+  {
+    "restaurant": {
+      "name": "费大厨",
+      "category": "湘菜",
+      "address": "",
+      "cover_url": "/examples/fei-dachu.jpg",
+      "images": "[\"/examples/fei-dachu.jpg\"]",
+      "tags": "[\"示例餐厅\"]",
+      "signature": "辣椒炒肉",
+      "wish": true,
+      "enabled": true,
+      "sort_order": 6,
+      "remark": "示例餐厅；请按自己的门店修改地址和菜单。"
+    },
+    "dishes": [
+      {
+        "name": "辣椒炒肉",
+        "image_url": "/examples/fei-dachu.jpg",
+        "images": "[\"/examples/fei-dachu.jpg\"]",
+        "video_url": "",
+        "category": "湘菜",
+        "meal_type": "all",
+        "taste": "",
+        "ingredients": "[]",
+        "seasonings": "[]",
+        "steps": "[]",
+        "cook_time": 0,
+        "difficulty": "easy",
+        "remark": "示例菜品",
+        "enabled": true,
+        "tags": "[]",
+        "sort_order": 10
+      }
+    ]
+  },
+  {
+    "restaurant": {
+      "name": "汉堡王",
+      "category": "快餐",
+      "address": "",
+      "cover_url": "/examples/burger-king.jpg",
+      "images": "[\"/examples/burger-king.jpg\"]",
+      "tags": "[\"示例餐厅\"]",
+      "signature": "汉堡套餐",
+      "wish": true,
+      "enabled": true,
+      "sort_order": 7,
+      "remark": "示例餐厅；请按自己的门店修改地址和菜单。"
+    },
+    "dishes": [
+      {
+        "name": "汉堡套餐",
+        "image_url": "/examples/burger-king.jpg",
+        "images": "[\"/examples/burger-king.jpg\"]",
+        "video_url": "",
+        "category": "快餐",
+        "meal_type": "all",
+        "taste": "",
+        "ingredients": "[]",
+        "seasonings": "[]",
+        "steps": "[]",
+        "cook_time": 0,
+        "difficulty": "easy",
+        "remark": "示例菜品",
+        "enabled": true,
+        "tags": "[]",
+        "sort_order": 10
+      }
+    ]
+  },
+  {
+    "restaurant": {
+      "name": "糖水店",
+      "category": "甜品",
+      "address": "",
+      "cover_url": "/examples/dessert-shop.jpg",
+      "images": "[\"/examples/dessert-shop.jpg\"]",
+      "tags": "[\"示例餐厅\"]",
+      "signature": "芒果榴莲糖水",
+      "wish": true,
+      "enabled": true,
+      "sort_order": 8,
+      "remark": "示例餐厅；请按自己的门店修改地址和菜单。"
+    },
+    "dishes": [
+      {
+        "name": "芒果榴莲糖水",
+        "image_url": "/examples/dessert-shop.jpg",
+        "images": "[\"/examples/dessert-shop.jpg\"]",
+        "video_url": "",
+        "category": "甜品",
+        "meal_type": "all",
+        "taste": "",
+        "ingredients": "[]",
+        "seasonings": "[]",
+        "steps": "[]",
+        "cook_time": 0,
+        "difficulty": "easy",
+        "remark": "示例菜品",
+        "enabled": true,
+        "tags": "[]",
+        "sort_order": 10
+      }
+    ]
   }
 ]

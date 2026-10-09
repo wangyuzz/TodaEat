@@ -1,6 +1,6 @@
-# Contributing to TodayEat
+# Contributing to TodaEat
 
-欢迎为 TodayEat 修复问题、完善文档和改进功能。本项目面向希望自行部署餐厅收藏和双人用餐记录工具的用户。
+欢迎为 TodaEat 修复问题、完善文档和改进功能。本项目面向希望自行部署餐厅收藏和双人用餐记录工具的用户。
 
 ## 本地开发
 

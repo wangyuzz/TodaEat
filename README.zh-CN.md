@@ -1,16 +1,16 @@
-# TodayEat · 今天吃什么
+# TodaEat · 今天吃什么
 
 **[English](README.md) | 简体中文**
 
-[![CI](https://github.com/wangyuzz/eat/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyuzz/eat/actions/workflows/ci.yml)
-[![构建下载包](https://github.com/wangyuzz/eat/actions/workflows/packages.yml/badge.svg)](https://github.com/wangyuzz/eat/actions/workflows/packages.yml)
+[![CI](https://github.com/wangyuzz/TodaEat/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyuzz/TodaEat/actions/workflows/ci.yml)
+[![构建下载包](https://github.com/wangyuzz/TodaEat/actions/workflows/packages.yml/badge.svg)](https://github.com/wangyuzz/TodaEat/actions/workflows/packages.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 一个可自行部署的双人餐厅收藏和用餐记录应用。收藏想去的餐厅，纠结时随机选一家，吃完留下评分、心情和照片，让每一次一起吃饭都有迹可循。情侣、朋友或其他希望共同记录用餐的小伙伴都可以部署自己的实例。
 
 前端使用 React + Vite，后端使用 Go + Gin + SQLite。构建后由一个 Go 服务提供页面和 API，适合部署在自己的服务器上。
 
-TodayEat is a self-hosted restaurant wishlist and shared dining journal for two people. It supports random restaurant selection, ratings, photos, visit history, and achievements. Anyone can run their own instance using the documented setup below. Optional location search uses AMap; the core application works without an API key.
+TodaEat is a self-hosted restaurant wishlist and shared dining journal for two people. It supports random restaurant selection, ratings, photos, visit history, and achievements. Anyone can run their own instance using the documented setup below. Optional location search uses AMap; the core application works without an API key.
 
 ## 界面预览
 
@@ -19,7 +19,7 @@ TodayEat is a self-hosted restaurant wishlist and shared dining journal for two 
 | ![首页：随机餐厅推荐与用餐统计](docs/images/home.jpg) | ![餐厅清单：按分类浏览和收藏想去的餐厅](docs/images/restaurants.jpg) | ![用餐相册：按月份回顾打卡和图片](docs/images/photo-wall.jpg) |
 | 随机选一家餐厅，快速记录这一餐。 | 搜索、分类筛选，整理招牌菜和想去清单。 | 按月份整理每次用餐的图片、心情和花费。 |
 
-截图来自本地前端预览，餐厅、地址、用餐记录和食物插画均为虚构示例。
+截图来自本地前端预览，使用维护者提供的费大厨、汉堡王和糖水店照片；地址、日期、花费及备注均为示例数据。首次安装会加入这三家示例餐厅及菜品，图片位于 `frontend/public/examples/`。
 
 [在线实例](https://eat.nowayzzz1.dpdns.org/)需要应用密码；截图中的演示数据与在线实例相互独立。目前应用界面为简体中文，本仓库说明提供中英文版本。
 
@@ -115,9 +115,13 @@ npm run dev
 
 ## 构建与部署
 
+### 从 Releases 下载运行包
+
+在 [Releases](https://github.com/wangyuzz/TodaEat/releases/latest) 下载 Windows AMD64、Linux AMD64、Linux ARM64 运行包，也可下载源码包及 SHA-256 校验文件。解压运行包后，复制 `.env.example` 为 `.env`，配置密码和随机 JWT 密钥再启动。运行文件名使用 `todayeat` 前缀。
+
 ### 从 GitHub Actions 下载运行包
 
-在 [Build packages](https://github.com/wangyuzz/eat/actions/workflows/packages.yml) 中，维护者可点击 **Run workflow** 手动构建；推送 `v*` 标签也会触发构建。成功运行后，在 **Artifacts** 中选择 Windows AMD64、Linux AMD64 或 Linux ARM64 包。下载通常需要登录 GitHub，构建产物保留 30 天。
+在 [Build packages](https://github.com/wangyuzz/TodaEat/actions/workflows/packages.yml) 中，维护者可点击 **Run workflow** 手动构建；推送 `v*` 标签也会触发构建。成功运行后，在 **Artifacts** 中选择 Windows AMD64、Linux AMD64 或 Linux ARM64 包。下载通常需要登录 GitHub，构建产物保留 30 天。
 
 解压 GitHub 的产物压缩包，再解压其中的运行包，复制 `.env.example` 为 `.env` 并配置密码和密钥。自动包中包含程序、前端资源及部署说明。CI 在每次推送和 Pull Request 时检查后端测试、静态检查、构建和前端测试、构建。
 

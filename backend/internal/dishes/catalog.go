@@ -1,4 +1,4 @@
-// Default catalog recovered by starting the original binary with an empty DB.
+// Default catalog combines the original examples with maintainer-supplied photo examples.
 package dishes
 
 import (

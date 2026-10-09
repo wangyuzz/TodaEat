@@ -71,7 +71,7 @@ func TestInitializePreservesDataAndDoesNotReseedDeletedRestaurants(t *testing.T)
 	var restaurants, dishes int64
 	DB.Model(&models.Restaurant{}).Count(&restaurants)
 	DB.Model(&models.Dish{}).Count(&dishes)
-	if restaurants != 6 || dishes != 35 {
+	if restaurants != 9 || dishes != 38 {
 		t.Fatalf("unexpected fresh seeds: %d restaurants, %d dishes", restaurants, dishes)
 	}
 	if err := DB.Model(&models.Setting{}).Where("key = ?", "app_name").Update("value", "My name").Error; err != nil {
